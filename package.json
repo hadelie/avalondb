@@ -1,0 +1,23 @@
+{
+  "name": "avalon_db",
+  "version": "0.1.0",
+  "description": "The database of board games owned by AVALON, the board game circle of Univ. of Seoul.",
+  "scripts": {
+    "app": "node app.js"
+  },
+  "keywords": [
+    "Board Game",
+    "AVALON",
+    "UOS"
+  ],
+  "author": "Jung Hyeonjin",
+  "devDependencies": {
+  },
+  "dependencies": {
+    "express": "latest",
+    "passport": "latest"
+  },
+  "engines": {
+    "node": ">=0.12.x"
+  }
+}
