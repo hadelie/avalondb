@@ -35,11 +35,25 @@ p {
 
 
 
-
 <script src="/socket.io/socket.io.js"></script>
 <script src="//code.jquery.com/jquery-latest.min.js"></script>
 
 <script type='text/javascript'>
+
+
+var avGenre = {
+  0: '전략',
+  1: '추상',
+  2: '컬렉터블',
+  3: '가족',
+  4: '어린이',
+  5: '파티',
+  6: '테마',
+  7: '전쟁',
+  8: '한글',
+  9: '기타'
+}
+
 
 /* Custom Function
  * 
@@ -47,7 +61,7 @@ p {
  */
 
 //var listAttr = ["GameIndex", "GameGener", "GameName", "GameOwner", "SubmitDate", "GameMemo"];
-var listAttr = ["일련번호", "장르", "이름", "소유자", "등록날짜", "비고"];
+var listAttr = ["ID", "장르", "이름", "소유자", "등록날짜", "비고"];
 
 var initList = function () {
 
@@ -67,10 +81,10 @@ var addItem = function (item) {
 
   $('#table_boardgame>tbody').append(
       '<tr><td>'  + item.GameIndex
-    + '</td><td>' + item.GameGener
+    + '</td><td>' + avGenre[item.GameGener]
     + '</td><td>' + item.GameName
     + '</td><td>' + item.GameOwner
-    + '</td><td>' + item.SubmitDate
+    + '</td><td>' + item.SubmitDate.substr(0, 10)
     + '</td><td>' + item.GameMemo
     + '</td></tr>');
 
