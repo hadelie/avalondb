@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>AVALON DB</title>
+
+<style rel="stylesheet">
+p {
+  padding: 0px;
+  margin: 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<p>
+<h2>AVALON 보드게임 검색 :D</h2>
+</p>
+
+<p>
+게임 이름: <input type="text" id="searchbox"/>
+</p>
+
+<p>
+<table id="table_boardgame">
+  <thead><tr></tr></thead>
+
+  <tbody>
+  </tbody>
+</table>
+</p>
+
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="//code.jquery.com/jquery-latest.min.js"></script>
+
+<script type='text/javascript'>
+
+/* Custom Function
+ * 
+ * 2016. 3. 21. Jung Hyeonjin
+ */
+
+//var listAttr = ["GameIndex", "GameGener", "GameName", "GameOwner", "SubmitDate", "GameMemo"];
+var listAttr = ["일련번호", "장르", "이름", "소유자", "등록날짜", "비고"];
+
+var initList = function () {
+
+  clearList();
+
+  $('#table_boardgame>thead>tr').html('');
+
+  for (var i=0; i<listAttr.length; i++)
+    $('#table_boardgame>thead>tr').append('<th>'+ listAttr[i]+ '</th>');
+}
+
+var clearList = function () {
+  $('#table_boardgame>tbody').html('');
+}
+
+var addItem = function (item) {
+
+  $('#table_boardgame>tbody').append(
+      '<tr><td>'  + item.GameIndex
+    + '</td><td>' + item.GameGener
+    + '</td><td>' + item.GameName
+    + '</td><td>' + item.GameOwner
+    + '</td><td>' + item.SubmitDate
+    + '</td><td>' + item.GameMemo
+    + '</td></tr>');
+
+}
+
+initList();
+
+
+/* Socket.io */
+var socket = io.connect('/');
+
+$("#searchbox").keyup(function(event) {
+  if (event.which == 13) {
+    socket.emit('req_gamesearch', {word:$('#searchbox').val()});
+  }
+});
+
+socket.on('res_gamesearch', function (rows) { 
+
+  clearList();
+
+  for (var i=0; i<rows.length; i++) {
+//    $('#table_boardgame').append(rows[i].GameName+'<br>');
+
+    addItem(rows[i]);
+  }
+
+});
+
+</script>
+
+</body>
+</html>

@@ -15,8 +15,11 @@
   },
   "dependencies": {
     "express": "latest",
-    "passport": "latest"
-  },
+    "passport": "latest",
+    "jquery": "latest",
+    "mysql": "latest",
+    "socket.io": "latest" 
+ },
   "engines": {
     "node": ">=0.12.x"
   }
