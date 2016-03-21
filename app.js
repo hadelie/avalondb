@@ -1,13 +1,14 @@
 'use strict';
 
-var optionData = require('./config');
-var avMysql = require('./avalon_mysql_conf').get();
-var avGenre = require('./avalon_genre');
+var optionData = require('./conf/config');
+var avMysql = require('./conf/avalon_mysql_conf').get();
+var avGenre = require('./conf/avalon_genre');
 
 /* Express */
 var express = require('express');
 var app = express();
 var port_num = 3333;
+var sendFileOption = { root: __dirname + '/html/' }
 
 /* MySQL */
 var mysql = require('mysql');
@@ -16,15 +17,15 @@ var dbClient = mysql.createConnection(avMysql);
 /* Socket.io */
 var io = require('socket.io');
 
-
-
 /* Uncaught Exception Handling */
 process.on('uncaughtException', function (err) {
   console.log('uncaughtException 발생!! ('+err+')');
 });
 
-/* Middle Ware */
+/* MiddleWare */
+app.use('/static', express.static(__dirname + '/static'));
 app.use(function (req, res, next) {
+
   next();
 });
 
@@ -33,23 +34,11 @@ app.use(function (req, res, next) {
 /* RestFul */
 
 app.get('/', function (req, res) {
-  res.sendfile('html/index.html');
+  res.sendFile('index.html', sendFileOption);
 });
 
 app.get('/name/:name', function (req, res) {
-//  res.sendfile('html/name.html');
   res.send(req.params.name);
-});
-
-app.get('/name', function (req, res) {
-  if (req.param('name'))
-    res.redirect('/name/' + req.param('name'));
-  else
-    res.redirect('/');
-});
-
-app.get('/view', function (req, res) {
-  res.sendfile('html/view.html');
 });
 
 app.get('/mysql', function (req, res) {
@@ -59,6 +48,8 @@ app.get('/mysql', function (req, res) {
   });
 
 });
+
+
 
 /* Server Start */
 
@@ -78,18 +69,32 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('req_gamesearch', function(data){
 
-    var word = data.word;
-    var fixedWord = '%';
+    if (data.word != undefined) {
+	    var word = data.word;
+	    var fixedWord = '%';
 
-    for (var i=0; i<word.length; i++) {
-      fixedWord += word.charAt(i)+'%';
+	    for (var i=0; i<word.length; i++) {
+	      fixedWord += word.charAt(i)+'%';
+	    }
+
+	    var query = dbClient.query('SELECT * FROM BoardGame WHERE GameName LIKE \"'+fixedWord+'\"', function(err, rows) {
+
+	      socket.emit('res_gamesearch', rows);
+	    });
+    } else if (data.genre != undefined && data.genre != 'none') {
+	    var genre = data.genre;
+
+	    if (genre=='all')
+	      var query = dbClient.query('SELECT * FROM BoardGame', function(err, rows) {
+	        socket.emit('res_gamesearch', rows);
+	      });
+	    else
+	      var query = dbClient.query('SELECT * FROM BoardGame WHERE GameGener='+genre, function(err, rows) {
+	        socket.emit('res_gamesearch', rows);
+	      });
     }
 
-    var result = {}, i = 0;
-    var query = dbClient.query('SELECT * FROM BoardGame WHERE GameName LIKE \"'+fixedWord+'\"', function(err, rows) {
 
-      socket.emit('res_gamesearch', rows);
-    });
   })
 });
 

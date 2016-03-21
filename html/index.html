@@ -5,13 +5,7 @@
 <meta charset="utf-8" />
 <title>AVALON DB</title>
 
-<style rel="stylesheet">
-p {
-  padding: 0px;
-  margin: 20px;
-}
-</style>
-
+<link rel="stylesheet" href="/static/style/main.css" />
 </head>
 
 <body>
@@ -21,12 +15,20 @@ p {
 </p>
 
 <p>
-게임 이름: <input type="text" id="searchbox"/>
+게임 이름: <input type="text" id="txt_search_by_name" />&nbsp;<button id="btn_search_by_name">검색</button><br>
+<br>
+게임 장르: 
+<select id="opt_search_by_genre">
+  <option value='none' style='display:none;'></option>
+  <option value='all'>All</option>
+</select>
 </p>
 
 <p>
-<table id="table_boardgame">
-  <thead><tr></tr></thead>
+<table id="list_boardgame" cellpadding="4" cellspacing="0">
+  <thead>
+    <tr></tr>
+  </thead>
 
   <tbody>
   </tbody>
@@ -35,83 +37,46 @@ p {
 
 
 
-<script src="/socket.io/socket.io.js"></script>
-<script src="//code.jquery.com/jquery-latest.min.js"></script>
+<script type='text/javascript' src="/socket.io/socket.io.js"></script>
+<script type='text/javascript' src="//code.jquery.com/jquery-latest.min.js"></script>
+
+<script type='text/javascript' src="/static/script/avGenre.js"></script>
+<script type='text/javascript' src="/static/script/avList.js"></script>
 
 <script type='text/javascript'>
 
-
-var avGenre = {
-  0: '전략',
-  1: '추상',
-  2: '컬렉터블',
-  3: '가족',
-  4: '어린이',
-  5: '파티',
-  6: '테마',
-  7: '전쟁',
-  8: '한글',
-  9: '기타'
-}
-
-
-/* Custom Function
- * 
- * 2016. 3. 21. Jung Hyeonjin
- */
-
-//var listAttr = ["GameIndex", "GameGener", "GameName", "GameOwner", "SubmitDate", "GameMemo"];
-var listAttr = ["ID", "장르", "이름", "소유자", "등록날짜", "비고"];
-
-var initList = function () {
-
-  clearList();
-
-  $('#table_boardgame>thead>tr').html('');
-
-  for (var i=0; i<listAttr.length; i++)
-    $('#table_boardgame>thead>tr').append('<th>'+ listAttr[i]+ '</th>');
-}
-
-var clearList = function () {
-  $('#table_boardgame>tbody').html('');
-}
-
-var addItem = function (item) {
-
-  $('#table_boardgame>tbody').append(
-      '<tr><td>'  + item.GameIndex
-    + '</td><td>' + avGenre[item.GameGener]
-    + '</td><td>' + item.GameName
-    + '</td><td>' + item.GameOwner
-    + '</td><td>' + item.SubmitDate.substr(0, 10)
-    + '</td><td>' + item.GameMemo
-    + '</td></tr>');
-
-}
-
-initList();
-
+/* Initialize List */
+avList.initList();
 
 /* Socket.io */
 var socket = io.connect('/');
 
-$("#searchbox").keyup(function(event) {
+// Send Request
+var reqGames = function (data) {
+  socket.emit('req_gamesearch', data);
+}
+
+$("#txt_search_by_name").keyup(function(event) {
   if (event.which == 13) {
-    socket.emit('req_gamesearch', {word:$('#searchbox').val()});
+    reqGames({word:$('#txt_search_by_name').val()});
   }
 });
+$("#btn_search_by_name").click(function() {
+  reqGames({word:$('#txt_search_by_name').val()});
+});
+$('#opt_search_by_genre').change(function() {
+  reqGames({
+    genre: $("#opt_search_by_genre option:selected").val()
+  });
+})
 
+// Receive Response
 socket.on('res_gamesearch', function (rows) { 
-
-  clearList();
+  avList.clearList();
 
   for (var i=0; i<rows.length; i++) {
-//    $('#table_boardgame').append(rows[i].GameName+'<br>');
-
-    addItem(rows[i]);
+    avList.addItem(rows[i]);
   }
-
 });
 
 </script>
