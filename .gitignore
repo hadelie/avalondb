@@ -1,1 +1,3 @@
+node_modules/
 avalon_mysql_conf.js
+.*.swp
