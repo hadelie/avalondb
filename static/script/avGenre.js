@@ -8,8 +8,11 @@ var avGenre = {
   6: '테마',
   7: '전쟁',
   8: '한글',
-  9: '기타'
+  9: '기타',
+  'all': 'All'
 }
 
-  for (var i=0; i<10; i++)
-    $('#opt_search_by_genre').append('<option value=\"'+i+'\">'+avGenre[i]+'</option>');
+for (var i=0; i<10; i++)
+  $('#opt_search_by_genre').append('<li value=\"'+i+'\" onclick=\"searchByGenre('+i+')\"><a>'+avGenre[i]+'</a></li>');
+
+//  $('#opt_search_by_genre').append('<option value=\"'+i+'\">'+avGenre[i]+'</option>');
