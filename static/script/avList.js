@@ -13,7 +13,7 @@ var avList = {
 	  $('#list_boardgame>thead>tr').html('');
 
 	  for (var i=0; i<this.listAttr.length; i++)
-	    $('#list_boardgame>thead>tr').append('<th>'+ this.listAttr[i]+ '</th>');
+	    $('#list_boardgame>thead>tr').append('<th class=th_'+i+'>'+ this.listAttr[i]+ '</th>');
 	},
 
 	clearList : function () {
@@ -21,15 +21,27 @@ var avList = {
 	},
 
 	addItem : function (item) {
-
+/*
 	  $('#list_boardgame>tbody').append(
 	      '<tr><td>'  + item.GameIndex
 	    + '</td><td>' + avGenre[item.GameGener]
 	    + '</td><td>' + item.GameName
 	    + '</td><td>' + item.GameOwner
 	    + '</td><td>' + item.SubmitDate.substr(0, 10)
-	    + '</td><td>' + item.GameMemo
+	    + '</td><td class=td_game_memo>' + item.GameMemo
 	    + '</td></tr>');
+*/
+	  $('#list_boardgame>tbody').append(
+	      '<tr><td>'  + item.GameIndex
+	    + '</td><td>' + avGenre[item.GameGener]
+	    + '</td><td>' + item.GameName
+	    + '</td><td>' + item.GameOwner
+	    + '</td><td>' + item.SubmitDate.substr(0, 10)
+	    + '</td><td>'
+		+ '<a tabindex="0" class="btn btn-xs btn-default" role="button" data-toggle="popover" data-trigger="focus" data-placement=bottom data-content=\"' + item.GameMemo + '\">view</button>'
+	    + '</td></tr>');
+
+
 
 	}
 }

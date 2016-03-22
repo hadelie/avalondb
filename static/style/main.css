@@ -2,12 +2,19 @@
 table {
 //  border-top: solid 1px #000;
 //  border-left: solid 1px #000;
+//  table-layout: fixed;
 }
 
 th, td {
 //  border-right: solid 1px #000;
 //  border-bottom: solid 1px #000;
 //  padding: 4px;
+}
+
+.td_game_memo {
+//  white-space: nowrap;
+//  overflow: hidden;
+//  text-overflow: ellipsis;
 }
 
 input.txt_search {
@@ -25,4 +32,76 @@ input.txt_search {
 
 .opt_search>li>a {
   cursor: pointer;
+}
+
+#nav_top {
+  background: #333;
+  border-bottom: 0;
+  opacity: .85;
+}
+
+.h_title{
+  color: #780000;
+  font-family: 'Raleway', 'Droid Serif';
+  font-weight: 700;
+}
+h1.h_title {
+  font-size: 56px;
+}
+h2.h_title {
+  font-size: 40px;
+  margin-top: 0;
+}
+
+.navbar-brand {
+  color: #ccc !important;
+  padding-right: 25px;
+}
+
+ul.nav.navbar-nav>li>a , ul.nav.navbar-nav>li>a:visited{
+  color: #fff;
+  cursor: pointer;
+}
+
+ul.nav.navbar-nav>li>a:hover {
+  color: #fff;
+}
+
+ul.nav.navbar-nav>li.active>a {
+  color: #222;
+  font-weight: bold;
+  cursor: pointer;
+}
+/*
+#list_boardgame thead .th_0 {
+  width: 10%;
+  max-width: 60px;
+}
+
+#list_boardgame thead .th_1 {
+  width: 10%;
+}
+
+#list_boardgame thead .th_2 {
+  width: 25%;
+}
+
+
+#list_boardgame thead .th_3 {
+  width: 10%;
+}
+
+
+#list_boardgame thead .th_4 {
+  width: 15%;
+}
+
+
+#list_boardgame thead .th_5 {
+  width: 30%;
+}
+*/
+
+footer .text-muted {
+//  text-align: center;
 }

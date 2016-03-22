@@ -4,6 +4,7 @@ var optionData = require('./conf/config');
 var avMysql = require('./conf/avalon_mysql_conf').get();
 var avGenre = require('./conf/avalon_genre');
 
+
 /* Express */
 var express = require('express');
 var app = express();
@@ -29,7 +30,9 @@ app.use(function (req, res, next) {
   next();
 });
 
-
+var gettime = function () {
+  return (new Date().getTime());
+}
 
 /* RestFul */
 
@@ -74,11 +77,18 @@ io.sockets.on('connection', function (socket) {
 		if (data.id != undefined) {
 			var id = data.id;
 
+			console.log('search by ID : '+id);
+dbClient.query('INSERT INTO BGSearchRecord (search_field, search_keyword, date) VALUES ("ID", "'+id+'", now())');
+
+
 			query = 'SELECT * FROM BoardGame WHERE GameIndex LIKE \"%'+id+'%\"';
 
 		} else if (data.word != undefined) {
 			var word = data.word;
 			var fixedWord = '%';
+
+			console.log('search by NAME : '+word);
+			dbClient.query('INSERT INTO BGSearchRecord (search_field, search_keyword, date) VALUES ("NAME", "'+word+'", now())');
 
 			for (var i=0; i<word.length; i++) {
 				fixedWord += word.charAt(i)+'%';
@@ -88,6 +98,9 @@ io.sockets.on('connection', function (socket) {
 
 		} else if (data.genre != undefined && data.genre != 'none') {
 			var genre = data.genre;
+
+			console.log('search by Genre : '+avGenre[genre]);
+			dbClient.query('INSERT INTO BGSearchRecord (search_field, search_keyword, date) VALUES ("GENRE", "' + avGenre[genre] + '", now())');
 
 			if (genre=='all')
 				query = 'SELECT * FROM BoardGame';
