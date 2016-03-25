@@ -106,8 +106,9 @@
   </ul>
 </div><br>
 <br>
+<label>검색 결과 <span id="badge_result" class="badge"></span></label><br>
 
-<table id="list_boardgame" class="table table-striped table-hoverB table-condensed table-responsive" cellpadding="4" cellspacing="0">
+<table id="list_boardgame" class="table table-striped table-bordered table-hoverB table-condensed table-responsive" cellpadding="4" cellspacing="0">
   <thead>
     <tr></tr>
   </thead>
@@ -183,6 +184,8 @@ var searchByGenre = function (gen) {
 // Receive Response
 socket.on('res_gamesearch', function (rows) { 
   avList.clearList();
+
+  $('#badge_result').html(rows.length);
 
   for (var i=0; i<rows.length; i++) {
     avList.addItem(rows[i]);

@@ -32,12 +32,12 @@ var avList = {
 	    + '</td></tr>');
 */
 	  $('#list_boardgame>tbody').append(
-	      '<tr><td>'  + item.GameIndex
-	    + '</td><td>' + avGenre[item.GameGener]
-	    + '</td><td>' + item.GameName
-	    + '</td><td>' + item.GameOwner
-	    + '</td><td>' + item.SubmitDate.substr(0, 10)
-	    + '</td><td>'
+	      '<tr><td class="td_0">'  + item.GameIndex
+	    + '</td><td class="td_1">' + avGenre[item.GameGener]
+	    + '</td><td class="td_2">' + item.GameName
+	    + '</td><td class="td_3">' + item.GameOwner
+	    + '</td><td class="td_4">' + item.SubmitDate.substr(0, 10)
+	    + '</td><td class="td_5">'
 		+ '<a tabindex="0" class="btn btn-xs btn-default" role="button" data-toggle="popover" data-trigger="focus" data-placement=bottom data-content=\"' + item.GameMemo + '\">view</button>'
 	    + '</td></tr>');
 

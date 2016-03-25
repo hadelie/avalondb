@@ -58,6 +58,14 @@ h2.h_title {
   padding-right: 25px;
 }
 
+th {
+  min-width: 40px;
+}
+
+.td_0, .td_4 {
+  color: #999;
+}
+
 ul.nav.navbar-nav>li>a , ul.nav.navbar-nav>li>a:visited{
   color: #fff;
   cursor: pointer;
