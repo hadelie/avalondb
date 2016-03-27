@@ -41,7 +41,7 @@ input.txt_search {
 }
 
 .h_title{
-  color: #780000;
+  color: #990000;
   font-family: 'Raleway', 'Droid Serif';
   font-weight: 700;
 }
@@ -109,6 +109,14 @@ ul.nav.navbar-nav>li.active>a {
   width: 30%;
 }
 */
+
+.jumbotron {
+  padding: 40px !important;
+}
+
+.jumbotron>h2 {
+  margin-top: 10px;
+}
 
 footer .text-muted {
 //  text-align: center;

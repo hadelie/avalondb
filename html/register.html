@@ -1,0 +1,326 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>AVALON DB</title>
+
+<!-- BOOTSTRAP CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<link href='https://fonts.googleapis.com/css?family=Raleway:400,700,900' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/static/style/sticky-footer-navbar.css" />
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="/static/style/main.css" />
+
+</head>
+
+<body>
+
+    <!-- Fixed navbar -->
+    <nav id="nav_top" class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">UOS AVALON</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li onclick="location.href='/search'"><a>검색</a></li>
+            <li class="active"><a>등록</a></li>
+<!--            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+-->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<!-- Body -->
+<div class="container">
+
+<br>
+<!--<h1 class="h_title">AVALON</h1>-->
+<h2 class="h_title">Register Games</h2>
+<br>
+<br>
+
+<div id="box_login" class="jumbotron">
+<h2>로그인</h2>
+<br>
+
+<label>관리자 ID</label>
+<div class="input-groupB">
+  <input type="text" id="txt_user" class="txt_search form-control" autofocus />
+</div>
+<br>
+
+<label>비밀번호</label>
+<div class="input-groupB">
+  <input type="password" id="txt_password" class="txt_search form-control" />
+</div>
+<br>
+
+<button id="btn_login" class="btn_search btn btn-primary btn-block">LOGIN</button><br>
+
+</div> <!-- jumbotron -->
+
+
+
+<div id="box_register" class="jumbotron" style="display: none;">
+<h2>게임 등록</h2>
+<br>
+
+<div class="dropdown">
+  <label>* 장르</label><br>
+  <button id="btn_genre" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <span class="txt">Select Genre</span>&nbsp;
+    <span class="caret"></span>
+  </button>
+  <ul id="opt_genre" class="opt_search dropdown-menu" aria-labelledby="dropdownMenu1">
+  </ul>
+</div>
+<br>
+
+<label>* 게임 이름</label>
+<div class="input-groupB">
+  <input type="text" id="txt_game_name" class="txt_search form-control" autofocus />
+</div>
+<br>
+
+<label>소유자</label>
+<div class="input-groupB">
+  <input type="text" id="txt_game_owner" class="txt_search form-control" placeholder="AVALON" autofocus />
+</div>
+<br>
+
+<label>비고</label>
+<div class="input-groupB">
+  <input type="text" id="txt_game_memo" class="txt_search form-control" autofocus />
+</div>
+<br>
+
+<button id="btn_register" class="btn_search btn btn-primary btn-block">등록</button><br>
+
+
+
+</div> <!-- jumbotron -->
+
+
+<!--
+<select id="opt_search_by_genre" class="form-control">
+  <option value='none' style='display:none;'></option>
+  <option value='all'>All</option>
+</select>
+-->
+
+<!--
+<div class="dropdown">
+  <label>장르</label><br>
+  <button id="btn_search_by_genre" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <span class="txt">Select Genre</span>&nbsp;
+    <span class="caret"></span>
+  </button>
+  <ul id="opt_search_by_genre" class="opt_search dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li value="all" onclick="searchByGenre('all')"><a>All</a></li>
+  </ul>
+</div><br>
+<br>
+<label>검색 결과 <span id="badge_result" class="badge"></span></label><br>
+
+<table id="list_boardgame" class="table table-striped table-bordered table-hoverB table-condensed table-responsive" cellpadding="4" cellspacing="0">
+  <thead>
+    <tr></tr>
+  </thead>
+
+  <tbody>
+
+  </tbody>
+</table>
+-->
+
+</div>
+
+
+
+
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted">© AVALON of UOS</p>
+  </div>
+</footer>
+
+<script type='text/javascript' src="/socket.io/socket.io.js"></script>
+<script type='text/javascript' src="//code.jquery.com/jquery-latest.min.js"></script>
+
+<!-- BOOTSTRAP Javascript --> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<script type='text/javascript' src="/static/script/avGenre.js"></script>
+<script type='text/javascript' src="/static/script/avGenreRegister.js"></script>
+<script type='text/javascript' src="/static/script/avList.js"></script>
+
+<script type='text/javascript'>
+
+var selectedGenre = -1;
+
+var selectGenre = function (gen) {
+  selectedGenre = gen;
+
+  if (gen >= 0)
+    $('#btn_genre>.txt').html(avGenre[gen]);
+  else
+    $('#btn_genre>.txt').html('Select Genre');
+}
+
+/* Socket.io */
+var socket = io.connect('/');
+
+// Send Request
+var reqAdminLogin = function () {
+
+  if (!($("#txt_user").val() != '' && $("#txt_password").val() != '')) {
+    loginErr('ID와 비밀번호를 모두 입력해주세요.');
+    return;
+
+  } else {
+
+    socket.emit('req_login_admin', {
+      user: $('#txt_user').val(),
+      password: $('#txt_password').val()
+    });
+  }
+}
+
+var loginSuccess = function () {
+  $('#box_login').css('display', 'none').html('');
+  $('#box_register').css('display', '');
+  $('#txt_game_name').focus();
+}
+
+var loginErr = function (msg) {
+  alert(msg);
+}
+
+$("#txt_user").keydown(function(event) {
+  if (event.which == 13) {
+    reqAdminLogin();
+  }
+});
+$("#txt_password").keydown(function(event) {
+  if (event.which == 13) {
+    reqAdminLogin();
+  }
+});
+
+$("#btn_login").click(reqAdminLogin);
+
+// Receive Response
+socket.on('res_login_admin', function (res) { 
+  if (res.loggedIn == true)
+    loginSuccess();
+  else
+    loginErr('Invalid Account.');
+});
+
+
+
+var reqRegister = function () {
+
+  if (isThereEmptyOne()) {
+    registerErr("필수 정보를 모두 입력해주세요.");
+    return;
+  } else {
+
+    var _owner = $('#txt_game_owner').val().trim();
+    if (_owner == '') _owner = 'AVALON';
+
+    var data = {
+      GameName: $('#txt_game_name').val().trim(),
+      GameOwner: _owner,
+      GameMemo: $('#txt_game_memo').val().trim(),
+      GameGener: selectedGenre
+    }
+
+    socket.emit('req_gameregister', data);
+  }
+}
+
+var registerSuccess = function (data) {
+  alert('[Registered]'+
+	'\n게임 ID: '+ data.GameIndex+
+	'\n게임이름: '+ data.GameName+
+	'\n소유자: '+ data.GameOwner);
+
+  selectGenre(-1);
+  $('#txt_game_owner').val('');
+  $('#txt_game_memo').val('');
+  $('#txt_game_name').val('').focus();
+ 
+
+
+}
+
+var registerErr = function (msg) {
+  alert(msg);
+}
+
+var isThereEmptyOne = function () {
+  var res = false;
+
+  if ($('#txt_game_name').val().trim() == '')
+    res = true;
+  else if (selectedGenre < 0)
+    res = true;
+
+  return res;
+}
+
+$('#txt_game_name').keydown(function(event) {
+  if (event.which == 13) {
+    reqRegister();
+  }
+});
+$('#txt_game_owner').keydown(function(event) {
+  if (event.which == 13) {
+    reqRegister();
+  }
+});
+$('#txt_game_memo').keydown(function(event) {
+  if (event.which == 13) {
+    reqRegister();
+  }
+});
+$('#btn_register').click(regRegister);
+
+socket.on('res_gameregister', function (res) {
+  if (res.registered == true)
+    registerSuccess(res.data);
+  else if (res.msg==='notLoggedIn')
+    registerErr("관리자 로그인 필요.");
+  else
+    registerErr("등록 실패 : "+ res.msg);
+});
+
+</script>
+
+</body>
+</html>
