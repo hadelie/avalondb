@@ -309,7 +309,9 @@ $('#txt_game_memo').keydown(function(event) {
     reqRegister();
   }
 });
-$('#btn_register').click(regRegister);
+$('#btn_register').click(function() {
+  regRegister();
+);
 
 socket.on('res_gameregister', function (res) {
   if (res.registered == true)
