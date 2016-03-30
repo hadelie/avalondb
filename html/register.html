@@ -257,7 +257,7 @@ var reqRegister = function () {
       GameName: $('#txt_game_name').val().trim(),
       GameOwner: _owner,
       GameMemo: $('#txt_game_memo').val().trim(),
-      GameGener: selectedGenre
+      GameGenre: selectedGenre
     }
 
     socket.emit('req_gameregister', data);

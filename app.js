@@ -127,7 +127,7 @@ io.sockets.on('connection', function (socket) {
 			if (genre=='all')
 				query = 'SELECT * FROM BoardGame';
 			else
-				query = 'SELECT * FROM BoardGame WHERE GameGener='+genre;
+				query = 'SELECT * FROM BoardGame WHERE GameGenre='+genre;
 		}
 
 		if (query) {
@@ -156,7 +156,7 @@ io.sockets.on('connection', function (socket) {
 			if (data.GameName=='') {
 				socket.emit('res_gameregister', {registered: false, msg: 'no GameName'});
 				return;
-			} else if (!(data.GameGener>='0' && data.GameGener <= '9')) {
+			} else if (!(data.GameGenre>='0' && data.GameGenre <= '9')) {
 				socket.emit('res_gameregister', {registered: false, msg: 'no GameGenre'});
 				return;
 			}
@@ -166,7 +166,7 @@ io.sockets.on('connection', function (socket) {
 			else
 				data.GameIndex = 'B';
 
-			data.GameIndex += data.GameGener;
+			data.GameIndex += data.GameGenre;
 
 			dbClient.query('SELECT COUNT(GameIndex) FROM BoardGame WHERE GameIndex LIKE "'+ data.GameIndex +'%"', function (err, row) {
 				var _cnt = row[0]["COUNT(GameIndex)"];
@@ -178,7 +178,7 @@ io.sockets.on('connection', function (socket) {
 				else
 					data.GameIndex += _cnt;
 
-				dbClient.query('INSERT INTO BoardGame (GameIndex, GameGener, GameName, GameOwner, SubmitDate, GameMemo) VALUES ("'+ data.GameIndex +'", "'+ data.GameGener +'", "'+ data.GameName +'", "'+ data.GameOwner +'", DATE_ADD(now(), INTERVAL 9 HOUR), "'+ data.GameMemo +'")', function (err, row) {
+				dbClient.query('INSERT INTO BoardGame (GameIndex, GameGenre, GameName, GameOwner, SubmitDate, GameMemo) VALUES ("'+ data.GameIndex +'", "'+ data.GameGenre +'", "'+ data.GameName +'", "'+ data.GameOwner +'", DATE_ADD(now(), INTERVAL 9 HOUR), "'+ data.GameMemo +'")', function (err, row) {
 					
 					socket.emit('res_gameregister', {registered: true, data: data});
 				});

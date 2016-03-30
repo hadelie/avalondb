@@ -145,6 +145,21 @@
 /* Initialize List */
 avList.initList();
 
+
+
+/* Easy to Put ID */
+
+$("#txt_search_by_id").keyup(function(event) {
+  $("#txt_search_by_id").val(
+    $("#txt_search_by_id").val()
+      .replace("a",  "A")
+      .replace("ㅁ", "A")
+      .replace("b",  "B")
+      .replace("ㅠ", "B")
+  );
+})
+
+
 /* Socket.io */
 var socket = io.connect('/');
 
@@ -155,11 +170,19 @@ var reqSearch = function (data) {
 
 $("#txt_search_by_id").keydown(function(event) {
   if (event.which == 13) {
-    reqSearch({id:$('#txt_search_by_id').val().trim()});
+    reqSearch({id:$('#txt_search_by_id').val().trim()
+      .replace("a",  "A")
+      .replace("ㅁ", "A")
+      .replace("b",  "B")
+      .replace("ㅠ", "B")});
   }
 });
 $("#btn_search_by_id").click(function() {
-  reqSearch({id:$('#txt_search_by_id').val().trim()});
+  reqSearch({id:$('#txt_search_by_id').val().trim()
+      .replace("a",  "A")
+      .replace("ㅁ", "A")
+      .replace("b",  "B")
+      .replace("ㅠ", "B")});
 });
 $("#txt_search_by_name").keydown(function(event) {
   if (event.which == 13) {
