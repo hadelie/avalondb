@@ -211,7 +211,10 @@ var searchByGenre = function (gen) {
 socket.on('res_gamesearch', function (rows) { 
   avList.clearList();
 
-  $('#badge_result').html(rows.length);
+  if (rows && rows.length)
+    $('#badge_result').html(rows.length);
+  else
+    $('#badge_result').html("0");
 
   for (var i=0; i<rows.length; i++) {
     avList.addItem(rows[i]);
