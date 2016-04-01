@@ -20,6 +20,19 @@ var sendFileOption = { root: __dirname + '/html/' }
 var mysql = require('mysql');
 var dbClient = mysql.createConnection(avMysql);
 
+dbClient.on('error', function (error) {
+  if (!error.fatal)
+    return;
+  if (error.code !== 'PROTOCOL_CONNECTION_LOST')
+    throw err;
+
+  console.error('> Re-connecting lost MySQL connection: ' + error.stack);
+  dbClient = mysql.createConnection(client.config);
+  handleDisconnect(global.dbcon);
+  global.dbcon.connect();
+});
+
+
 /* Socket.io */
 var io = require('socket.io');
 var sharedsession = require('express-socket.io-session');
