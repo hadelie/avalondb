@@ -20,17 +20,26 @@ var sendFileOption = { root: __dirname + '/html/' }
 var mysql = require('mysql');
 var dbClient = mysql.createConnection(avMysql);
 
-dbClient.on('error', function (error) {
-  if (!error.fatal)
-    return;
-  if (error.code !== 'PROTOCOL_CONNECTION_LOST')
-    throw err;
+var handleDisconnect = function () {
+  dbClient.on('error', function (error) {
+    if (!error.fatal)
+      return;
+    if (error.code !== 'PROTOCOL_CONNECTION_LOST')
+      throw err;
 
-  console.error('> Re-connecting lost MySQL connection: ' + error.stack);
-  dbClient = mysql.createConnection(client.config);
-  handleDisconnect(global.dbcon);
-  global.dbcon.connect();
-});
+    console.error('> Re-connecting lost MySQL connection: ' + error.stack);
+
+    try { dbClient.destroy(); } catch (ignore) {}
+
+    dbClient = mysql.createConnection(avMysql);
+
+    handleDisconnect();
+
+    console.log("\nnow mysql has been re-connected!\n");
+  });
+}
+
+handleDisconnect();
 
 
 /* Socket.io */
@@ -45,7 +54,6 @@ process.on('uncaughtException', function (err) {
 /* MiddleWare */
 
 app.use(session);
-
 app.use('/static', express.static(__dirname + '/static'));
 app.use(function (req, res, next) {
   req.session.admin_token = 0;
@@ -84,7 +92,7 @@ var server = app.listen(port_num, function () {
 
 /* GAME ID GENERATOR */
 
-//INPUT: OWNER and GENRE like ('A1')
+//INPUT: OWNER's type and GENRE like ('A1')
 //OUTPUT: ID like ('A1005')
 var genId = function (OG) {
 	dbClient.query('SELECT COUNT(GameIndex) FROM BoardGame WHERE GameIndex LIKE "'+ OG +'%"', function (err, row) {
