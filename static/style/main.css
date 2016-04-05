@@ -44,12 +44,15 @@ input.txt_search {
 
 
 * {
-  font-family: 'Jeju Gothic', 'Hanna';
+  font-family: 'Jeju Gothic';
+}
+
+input[type=password] {
+  font-family: 'Arial';
 }
 
 .h_title{
   color: #990000;
-//  font-family: 'Raleway', 'Droid Serif';
   font-weight: 500;
 }
 h1.h_title {
