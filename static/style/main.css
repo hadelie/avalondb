@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
 
 table {
 //  border-top: solid 1px #000;
@@ -40,22 +42,30 @@ input.txt_search {
   opacity: .85;
 }
 
+
+* {
+  font-family: 'Jeju Gothic', 'Hanna';
+}
+
 .h_title{
   color: #990000;
-  font-family: 'Raleway', 'Droid Serif';
-  font-weight: 700;
+//  font-family: 'Raleway', 'Droid Serif';
+  font-weight: 500;
 }
 h1.h_title {
   font-size: 56px;
+  font-family: 'Hanna';
 }
 h2.h_title {
   font-size: 40px;
   margin-top: 0;
+  font-family: 'Jeju Gothic';
 }
 
 .navbar-brand {
   color: #ccc !important;
   padding-right: 25px;
+  font-family: 'Hanna';
 }
 
 th {
@@ -116,6 +126,25 @@ ul.nav.navbar-nav>li.active>a {
 
 .jumbotron>h2 {
   margin-top: 10px;
+}
+
+#list_boardgame>tbody>tr:hover {
+  background: #eee;
+}
+
+.td_2 {
+  font-family: 'Hanna';
+  font-size: 12pt;
+}
+
+.td_5 {
+  text-align: center;
+}
+
+.td_5>a.btn {
+  width: 40px;
+  height: 19px;
+  margin-top: 2px;
 }
 
 footer .text-muted {

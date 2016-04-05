@@ -60,7 +60,7 @@
 <!--<h2>보드게임 검색 :D</-->
 <br>
 <h1 class="h_title">AVALON</h1>
-<h2 class="h_title">Boardgame Searcher</h2>
+<h2 class="h_title">보드게임 검색기</h2>
 <br>
 <br>
 
@@ -71,11 +71,11 @@
 <div class="dropdown">
   <label>장르</label><br>
   <button id="btn_search_by_genre" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    <span class="txt">Select Genre</span>&nbsp;
+    <span class="txt">= 선택 =</span>&nbsp;
     <span class="caret"></span>
   </button>
   <ul id="opt_search_by_genre" class="opt_search dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li value="all" onclick="searchByGenre('all')"><a>All</a></li>
+    <li value="all" onclick="searchByGenre('all')"><a>[모두 보기]</a></li>
   </ul>
 </div>
 <br>
@@ -83,7 +83,7 @@
 <label>게임 이름</label>
 <div class="input-group">
 <!--  <div class="input-group-addon">게임 이름</div>-->
-  <input type="text" id="txt_search_by_name" class="txt_search form-control" placeholder="ex) 아콜" autofocus />
+  <input type="text" id="txt_search_by_name" class="txt_search form-control" placeholder="예) 아콜" autofocus />
   <span class="input-group-btn">
     <div id="btn_search_by_name" class="btn_search btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
   </span>
@@ -91,10 +91,10 @@
 <!--<button id="btn_search_by_name" class="btn_search btn btn-default btn-sm">검색</button><br>-->
 <br>
 
-<label>게임 번호</label>
+<label>게임 ID</label>
 <div class="input-group">
 <!--  <div class="input-group-addon">게임 번호</div>-->
-  <input type="text" id="txt_search_by_id" class="txt_search form-control" placeholder="ex) A0000" />
+  <input type="text" id="txt_search_by_id" class="txt_search form-control" placeholder="예) A0000" />
   <span class="input-group-btn"> 
     <button id="btn_search_by_id" class="btn_search btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
   </span>
@@ -136,6 +136,7 @@
 <!-- BOOTSTRAP Javascript --> 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+<script type='text/javascript' src="/static/script/common.js"></script>
 <script type='text/javascript' src="/static/script/avGenre.js"></script>
 <script type='text/javascript' src="/static/script/avGenreSearch.js"></script>
 <script type='text/javascript' src="/static/script/avList.js"></script>
