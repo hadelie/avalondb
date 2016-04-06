@@ -25,7 +25,7 @@ var handleDisconnect = function () {
     if (!error.fatal)
       return;
     if (error.code !== 'PROTOCOL_CONNECTION_LOST')
-      throw err;
+      throw error;
 
     console.error('> Re-connecting lost MySQL connection: ' + error.stack);
 
