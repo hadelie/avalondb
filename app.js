@@ -116,40 +116,38 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('req_gamesearch', function(data){
 
-		var query = '';
-
+		var query = 'SELECT GameIndex, GameGenre, GameName, GameOwner, DATE_FORMAT(SubmitDate, "%Y-%m-%d") as SubmitDate, GameMemo FROM BoardGame';
 		if (data.id != undefined) {
 			var id = data.id;
 
-			console.log('search by ID : '+id);
+			console.log('searched by ID : '+id);
 			dbClient.query('INSERT INTO BGSearchHistory (search_field, search_keyword, date) VALUES ("ID", "'+id+'", DATE_ADD(now(), INTERVAL 9 HOUR))');
 
-			query = 'SELECT * FROM BoardGame WHERE GameIndex LIKE \"%'+id+'%\"';
+			query += ' WHERE GameIndex LIKE \"%'+id+'%\"';
 
 		} else if (data.word != undefined) {
 			var word = data.word;
 			var fixedWord = '%';
 
-			console.log('search by NAME : '+word);
+			console.log('searched by NAME : '+word);
 			dbClient.query('INSERT INTO BGSearchHistory (search_field, search_keyword, date) VALUES ("NAME", "'+word+'", DATE_ADD(now(), INTERVAL 9 HOUR))');
 
 			for (var i=0; i<word.length; i++) {
 				fixedWord += word.charAt(i)+'%';
 			}
 
-			query = 'SELECT * FROM BoardGame WHERE GameName LIKE \"'+fixedWord+'\"';
+			query += ' WHERE GameName LIKE \"'+fixedWord+'\"';
 
 		} else if (data.genre != undefined && data.genre != 'none') {
 			var genre = data.genre;
 
-			console.log('search by Genre : '+avGenre[genre]);
+			console.log('searched by Genre : '+avGenre[genre]);
 			dbClient.query('INSERT INTO BGSearchHistory (search_field, search_keyword, date) VALUES ("GENRE", "' + avGenre[genre] + '", DATE_ADD(now(), INTERVAL 9 HOUR))');
 
-			if (genre=='all')
-				query = 'SELECT * FROM BoardGame';
-			else
-				query = 'SELECT * FROM BoardGame WHERE GameGenre='+genre;
+			query += ' WHERE GameGenre='+genre;
 		}
+
+console.log(query);
 
 		if (query) {
 			dbClient.query(query, function(err, rows) {
@@ -214,3 +212,4 @@ io.sockets.on('connection', function (socket) {
 
 });
 
+console.log(new Date());

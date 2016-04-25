@@ -36,7 +36,7 @@ var avList = {
 	    + '</td><td class="td_1">' + avGenre[item.GameGenre]
 	    + '</td><td class="td_2">' + item.GameName
 	    + '</td><td class="td_3">' + item.GameOwner
-	    + '</td><td class="td_4">' + item.SubmitDate.substr(0, 10)
+	    + '</td><td class="td_4">' + item.SubmitDate/*.substr(0, 10)*/
 	    + '</td><td class="td_5">'
 		+ '<a tabindex="0" class="btn btn-xs btn-default" role="button" data-toggle="popover" data-trigger="focusB" data-placement=bottom data-content=\"' + item.GameMemo + '\"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></button>'
 	    + '</td></tr>');
