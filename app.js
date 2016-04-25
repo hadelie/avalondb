@@ -147,8 +147,6 @@ io.sockets.on('connection', function (socket) {
 			query += ' WHERE GameGenre='+genre;
 		}
 
-console.log(query);
-
 		if (query) {
 			dbClient.query(query, function(err, rows) {
 				socket.emit('res_gamesearch', rows);
@@ -212,4 +210,3 @@ console.log(query);
 
 });
 
-console.log(new Date());
