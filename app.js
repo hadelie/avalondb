@@ -41,6 +41,10 @@ var handleDisconnect = function () {
 
 handleDisconnect();
 
+// block disconnection caused by timeout
+var dbHeartBeat = setInterval (function () {
+  dbClient.query('SELECT 1');
+}, 3600000); // heart beats every hour
 
 /* Socket.io */
 var io = require('socket.io');
