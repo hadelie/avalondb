@@ -148,7 +148,8 @@ io.sockets.on('connection', function (socket) {
 			console.log('searched by Genre : '+avGenre[genre]);
 			dbClient.query('INSERT INTO BGSearchHistory (search_field, search_keyword, date) VALUES ("GENRE", "' + avGenre[genre] + '", DATE_ADD(now(), INTERVAL 9 HOUR))');
 
-			query += ' WHERE GameGenre='+genre;
+			if (genre != 'all')
+				query += ' WHERE GameGenre='+genre;
 		}
 
 		if (query) {
