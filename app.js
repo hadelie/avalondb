@@ -9,7 +9,7 @@ var avGenre = require('./conf/avalon_genre');
 /* Express */
 var express = require('express');
 var session = require('express-session')({
-	secret: '_secret_of_avalon_', cookie: { maxAge: 60000 }
+	secret: '_secret_of_avalon_', cookie: { maxAge: 600000 }
 });
 
 var app = express();
